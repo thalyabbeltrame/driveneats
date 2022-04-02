@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DrivenEats></title>
+
+    <link rel="stylesheet" href="reset.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Encode+Sans&family=Roboto:wght@300;400;700&family=Righteous&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="header-container">
+      <div class="header-content">
+        <h1>DrivenEats</h1>
+        <span>Sua comida em 6 minutos</span>
+      </div>
+    </header>
+    <section class="main-container">
+      <div class="main-content">
+        <div class="items">
+          <h2>Primeiro, seu prato</h2>
+          <ul class="main-courses">
+            <li>
+              <img src="images/main-courses/frango-grelhado.jpg" />
+              <h3>Frango Grelhado</h3>
+              <p>Com um Saboroso Arroz de Amêndoas</p>
+              <span>R$ 29,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+            <li>
+              <img src="images/main-courses/salmao-na-crosta-de-parmesao.jpg" />
+              <h3>Salmão na Crosta</h3>
+              <p>Com um Maravilhoso Risoto de Limão</p>
+              <span>R$ 41,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+            <li>
+              <img src="images/main-courses/bacalhau-gratinado.jpg" />
+              <h3>Bacalhau Gratinado</h3>
+              <p>Acompanhamento de sua Preferência</p>
+              <span>R$ 35,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+          </ul>
+        </div>
+
+        <div class="items">
+          <h2>Agora, sua bebida</h2>
+          <ul class="drinks">
+            <li>
+              <img src="images/drinks/refrigerante-lata.jpg" />
+              <h3>Refrigerante</h3>
+              <p>Lata de 350 mL</p>
+              <span>R$ 5,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+            <li>
+              <img src="images/drinks/suco-de-laranja.jpg" />
+              <h3>Suco de Laranja</h3>
+              <p>Copo de 300 mL</p>
+              <span>R$ 6,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+            <li>
+              <img src="images/drinks/mate-gelado.jpg" />
+              <h3>Mate Natural</h3>
+              <p>Copo de 300 mL</p>
+              <span>R$ 4,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+          </ul>
+        </div>
+
+        <div class="items">
+          <h2>Por fim, sua sobremesa</h2>
+          <ul class="desserts">
+            <li>
+              <img src="images/desserts/pudim.jpg" />
+              <h3>Pudim</h3>
+              <p>Pudim de Leite Condensado com Calda de Caramelo</p>
+              <span>R$ 13,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+            <li>
+              <img src="images/desserts/tiramisu.jpg" />
+              <h3>Tiramisu</h3>
+              <p>Preparada com Queijo Mascarpone e Biscoito Champagne</p>
+              <span>R$ 21,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+            <li>
+              <img src="images/desserts/torta-de-limao.jpg" />
+              <h3>Torta de Limão</h3>
+              <p>Finalizada com Raspas de Limão Siciliano</p>
+              <span>R$ 15,90</span>
+              <ion-icon class="hidden" name="checkmark-circle"></ion-icon>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <footer>
+      <button class="on-hold hidden">
+        <p>Selecione os 3 itens para fechar o pedido</p>
+      </button>
+      <button class="ending">
+        <p>Fechar pedido</p>
+      </button>
+    </footer>
+
+    <section class="confirm-order-container hidden">
+      <div class="confirm-order-content">
+        <h2>Confirme seu pedido</h2>
+        <div>
+          <span>Dish1</span>
+          <span>0,00</span>
+        </div>
+        <div>
+          <span>Drink1</span>
+          <span>0,00</span>
+        </div>
+        <div>
+          <span>Dessert1</span>
+          <span>0,00</span>
+        </div>
+        <div class="total-value">
+          <span>TOTAL</span>
+          <span>R$ 0,00</span>
+        </div>
+        <button class="confirm-button">
+          <p>Tudo certo, pode pedir!</p>
+        </button>
+        <button class="cancel-button">
+          <p>Cancelar</p>
+        </button>
+      </div>
+    </section>
+  </body>
+
+  <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+</html>
