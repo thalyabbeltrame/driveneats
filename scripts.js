@@ -12,76 +12,53 @@ let customerName;
 let customerAddress;
 
 function selectMainCourse(element) {
-  mainCourse = null;
-  mainCoursePrice = null;
+  mainCourse = element.querySelector("h3").innerText;
+  mainCoursePrice = element
+    .querySelector("span")
+    .innerText.replace("R$ ", "")
+    .replace(",", ".");
 
   const selectedMainCourse = document.querySelector(".main-courses .selected");
   if (selectedMainCourse !== null) {
     selectedMainCourse.classList.remove("selected");
     selectedMainCourse.querySelector("ion-icon").classList.add("hidden");
-  } else {
-    element.classList.add("selected");
-    element.querySelector("ion-icon").classList.remove("hidden");
   }
-  if (selectedMainCourse !== element) {
-    mainCourse = element.querySelector("h3").innerText;
-    mainCoursePrice = Number(
-      element
-        .querySelector("span")
-        .innerText.replace("R$ ", "")
-        .replace(",", ".")
-    );
-  }
+  element.classList.add("selected");
+  element.querySelector("ion-icon").classList.remove("hidden");
   checkForSelectedOptions();
 }
 
 function selectDrink(element) {
-  drink = null;
-  drinkPrice = null;
+  drink = element.querySelector("h3").innerText;
+  drinkPrice = element
+    .querySelector("span")
+    .innerText.replace("R$ ", "")
+    .replace(",", ".");
 
   selectedDrink = document.querySelector(".drinks .selected");
   if (selectedDrink !== null) {
     selectedDrink.classList.remove("selected");
     selectedDrink.querySelector("ion-icon").classList.add("hidden");
-  } else {
-    element.classList.add("selected");
-    element.querySelector("ion-icon").classList.remove("hidden");
   }
-
-  if (selectedDrink !== element) {
-    drink = element.querySelector("h3").innerText;
-    drinkPrice = Number(
-      element
-        .querySelector("span")
-        .innerText.replace("R$", "")
-        .replace(",", ".")
-    );
-  }
+  element.classList.add("selected");
+  element.querySelector("ion-icon").classList.remove("hidden");
   checkForSelectedOptions();
 }
 
 function selectDessert(element) {
-  dessert = null;
-  dessertPrice = null;
+  dessert = element.querySelector("h3").innerText;
+  dessertPrice = element
+    .querySelector("span")
+    .innerText.replace("R$ ", "")
+    .replace(",", ".");
 
   selectedDessert = document.querySelector(".desserts .selected");
   if (selectedDessert !== null) {
     selectedDessert.classList.remove("selected");
     selectedDessert.querySelector("ion-icon").classList.add("hidden");
-  } else {
-    element.classList.add("selected");
-    element.querySelector("ion-icon").classList.remove("hidden");
   }
-
-  if (selectedDessert !== element) {
-    dessert = element.querySelector("h3").innerText;
-    dessertPrice = Number(
-      element
-        .querySelector("span")
-        .innerText.replace("R$", "")
-        .replace(",", ".")
-    );
-  }
+  element.classList.add("selected");
+  element.querySelector("ion-icon").classList.remove("hidden");
   checkForSelectedOptions();
 }
 
@@ -89,39 +66,15 @@ function checkForSelectedOptions() {
   if (mainCourse !== null && drink !== null && dessert !== null) {
     document.querySelector(".ending").classList.remove("hidden");
     document.querySelector(".on-hold").classList.add("hidden");
-  } else {
-    document.querySelector(".ending").classList.add("hidden");
-    document.querySelector(".on-hold").classList.remove("hidden");
   }
 }
 
 function saveOrder() {
   customerName = prompt("Por gentileza, poderia me informar seu nome?");
   customerAddress = prompt("Agora, seu endereço, por favor!");
-
   if (!isNullOrEmpty(customerName) && !isNullOrEmpty(customerAddress)) {
     totalPrice = calculateTotalPrice();
-
-    document.querySelector(".confirm-order-content .main-course h3").innerText =
-      mainCourse;
-    document.querySelector(
-      ".confirm-order-content .main-course span"
-    ).innerText = Number(mainCoursePrice).toFixed(2);
-    document.querySelector(".confirm-order-content .drink h3").innerText =
-      drink;
-    document.querySelector(".confirm-order-content .drink span").innerText =
-      Number(drinkPrice).toFixed(2);
-    document.querySelector(".confirm-order-content .dessert h3").innerText =
-      dessert;
-    document.querySelector(".confirm-order-content .dessert span").innerText =
-      Number(dessertPrice).toFixed(2);
-    document.querySelector(
-      ".confirm-order-content .total-value span"
-    ).innerText += totalPrice;
-
-    document
-      .querySelector(".confirm-order-container")
-      .classList.remove("hidden");
+    updateInformations();
   } else {
     document.querySelector(
       ".confirm-order-content .total-value span"
@@ -144,9 +97,29 @@ function cancelOrder() {
 }
 
 function calculateTotalPrice() {
-  return (totalPrice = (mainCoursePrice + drinkPrice + dessertPrice).toFixed(
-    2
-  ));
+  return (
+    Number(mainCoursePrice) +
+    Number(drinkPrice) +
+    Number(dessertPrice)
+  ).toFixed(2);
+}
+
+function updateInformations() {
+  document.querySelector(".confirm-order-content .main-course h3").innerText =
+    mainCourse;
+  document.querySelector(".confirm-order-content .main-course span").innerText =
+    mainCoursePrice.replace(".", ",");
+  document.querySelector(".confirm-order-content .drink h3").innerText = drink;
+  document.querySelector(".confirm-order-content .drink span").innerText =
+    drinkPrice.replace(".", ",");
+  document.querySelector(".confirm-order-content .dessert h3").innerText =
+    dessert;
+  document.querySelector(".confirm-order-content .dessert span").innerText =
+    dessertPrice.replace(".", ",");
+  document.querySelector(
+    ".confirm-order-content .total-value span"
+  ).innerText += totalPrice.replace(".", ",");
+  document.querySelector(".confirm-order-container").classList.remove("hidden");
 }
 
 function isNullOrEmpty(value) {
