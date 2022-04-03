@@ -64,8 +64,9 @@ function selectDessert(element) {
 
 function checkForSelectedOptions() {
   if (mainCourse !== null && drink !== null && dessert !== null) {
-    document.querySelector(".ending").classList.remove("hidden");
-    document.querySelector(".on-hold").classList.add("hidden");
+    document.querySelector("footer button").classList.add("enabled");
+    document.querySelector("footer button").disabled = false;
+    document.querySelector("footer button p").innerText = "Fechar pedido";
   }
 }
 

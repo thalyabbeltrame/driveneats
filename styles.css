@@ -4,7 +4,6 @@
 
 body {
   background-color: #eae9e9;
-  position: relative;
 }
 
 .header-content span,
@@ -53,9 +52,7 @@ button p,
 .main-content {
   display: flex;
   flex-direction: column;
-  margin-top: calc(92px + 31px);
-  margin-bottom: calc(92px - 11px);
-  margin-left: 21px;
+  margin: calc(92px + 31px) 0 calc(92px - 11px) 21px;
 }
 
 section .items {
@@ -133,17 +130,16 @@ footer {
   display: flex;
   height: 92px;
   width: 100%;
+  padding: 15px 25px;
   background-color: #ffffff;
   position: fixed;
-  z-index: 2;
   bottom: 0;
   left: 0;
-  padding: 15px 25px;
+  z-index: 2;
 }
 
 footer button {
-  display: inline-block;
-  flex-wrap: wrap;
+  display: flex;
   height: 100%;
   width: 100%;
   align-items: center;
@@ -152,27 +148,20 @@ footer button {
   border-radius: 50px;
   color: #ffffff;
   font-size: 20px;
-}
-
-footer .on-hold {
   background-color: #cbcbcb;
   font-weight: 400;
 }
 
-footer .ending {
-  background-color: #32b72f;
-  font-weight: 700;
-  cursor: pointer;
+footer button p {
+  width: 220px;
 }
 
 .confirm-order-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
   width: 100%;
-  height: calc(100% + 184px + 31px);
+  height: calc(100% + 184px);
   background: rgba(255, 255, 255, 0.9);
-  position: absolute;
+  position: fixed;
   left: 0;
   bottom: -92px;
   z-index: 3;
@@ -186,7 +175,7 @@ footer .ending {
   height: 353px;
   padding: 25px 25px 0 25px;
   margin: auto 19px;
-  background: #50d074;
+  background-color: #50d074;
   color: #ffffff;
   box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.25);
   border-radius: 9px;
@@ -243,4 +232,10 @@ footer .ending {
   border: #32b72f 5px solid;
   box-shadow: 0px 0px 10px -4px rgba(0, 0, 0, 0.25);
   padding: 13px 9px;
+}
+
+.enabled {
+  background-color: #32b72f;
+  font-weight: 700;
+  cursor: pointer;
 }
