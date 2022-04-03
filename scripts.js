@@ -1,12 +1,13 @@
 // Global variables
-
 let mainCourse = null;
 let drink = null;
 let dessert = null;
+
 let mainCoursePrice = null;
 let drinkPrice = null;
 let dessertPrice = null;
 let totalPrice = null;
+
 let customerName;
 let customerAddress;
 
@@ -101,6 +102,22 @@ function saveOrder() {
       .querySelector(".confirm-order-container")
       .classList.remove("hidden");
   }
+}
+
+function confirmOrder() {
+  const message = `Olá, gostaria de fazer o pedido:\n- Prato: ${mainCourse}\n- Bebida: ${drink}\n- Sobremesa: ${dessert}\nTotal: R$ ${totalPrice}\n\nNome: ${customerName}\nEndereço: ${customerAddress}`;
+
+  window.open(
+    `https://wa.me/5521999999999?text=${encodeURIComponent(message)}`
+  );
+
+  document.querySelector(".confirm-order-container").classList.add("hidden");
+}
+
+function cancelOrder() {
+  document.querySelector(".confirm-order-container").classList.add("hidden");
+  document.querySelector(".confirm-order-content .total-value span").innerText =
+    "R$ ";
 }
 
 function isNullOrEmpty(value) {
