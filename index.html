@@ -110,7 +110,7 @@
       <button class="on-hold">
         <p>Selecione os 3 itens para fechar o pedido</p>
       </button>
-      <button class="ending hidden">
+      <button class="ending hidden" onclick="saveOrder()">
         <p>Fechar pedido</p>
       </button>
     </footer>
@@ -118,26 +118,26 @@
     <section class="confirm-order-container hidden">
       <div class="confirm-order-content">
         <h2>Confirme seu pedido</h2>
-        <div>
-          <span>Dish1</span>
-          <span>0,00</span>
+        <div class="main-course">
+          <h3></h3>
+          <span></span>
         </div>
-        <div>
-          <span>Drink1</span>
-          <span>0,00</span>
+        <div class="drink">
+          <h3></h3>
+          <span></span>
         </div>
-        <div>
-          <span>Dessert1</span>
-          <span>0,00</span>
+        <div class="dessert">
+          <h3></h3>
+          <span></span>
         </div>
         <div class="total-value">
-          <span>TOTAL</span>
-          <span>R$ 0,00</span>
+          <h3>TOTAL</h3>
+          <span>R$ </span>
         </div>
-        <button class="confirm-button">
+        <button class="confirm-button" onclick="corfirmOrder()">
           <p>Tudo certo, pode pedir!</p>
         </button>
-        <button class="cancel-button">
+        <button class="cancel-button" onclick="cancelOrder()">
           <p>Cancelar</p>
         </button>
       </div>
