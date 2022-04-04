@@ -1,67 +1,53 @@
-let mainCourse = null;
-let drink = null;
-let dessert = null;
+let mainCourseName = null;
+let drinkName = null;
+let dessertName = null;
 let mainCoursePrice = null;
 let drinkPrice = null;
 let dessertPrice = null;
 let totalPrice = null;
 
-function selectMainCourse(element) {
-  mainCourse = element.querySelector("h3").innerText;
-  mainCoursePrice = element
-    .querySelector("span")
-    .innerText.replace("R$ ", "")
-    .replace(",", ".");
-
-  const selectedMainCourse = document.querySelector(".main-courses .selected");
-  if (selectedMainCourse !== null) {
-    selectedMainCourse.classList.remove("selected");
-    selectedMainCourse.querySelector("ion-icon").classList.add("hidden");
+function selectOption(element, typeOption) {
+  const selected = document
+    .querySelector(typeOption)
+    .querySelector(".selected");
+  if (selected !== null && selected !== element) {
+    selected.classList.remove("selected");
+    selected.querySelector("ion-icon").classList.add("hidden");
   }
-  element.classList.add("selected");
-  element.querySelector("ion-icon").classList.remove("hidden");
-  checkForSelectedOptions();
-}
-
-function selectDrink(element) {
-  drink = element.querySelector("h3").innerText;
-  drinkPrice = element
-    .querySelector("span")
-    .innerText.replace("R$ ", "")
-    .replace(",", ".");
-
-  selectedDrink = document.querySelector(".drinks .selected");
-  if (selectedDrink !== null) {
-    selectedDrink.classList.remove("selected");
-    selectedDrink.querySelector("ion-icon").classList.add("hidden");
-  }
-  element.classList.add("selected");
-  element.querySelector("ion-icon").classList.remove("hidden");
-  checkForSelectedOptions();
-}
-
-function selectDessert(element) {
-  dessert = element.querySelector("h3").innerText;
-  dessertPrice = element
-    .querySelector("span")
-    .innerText.replace("R$ ", "")
-    .replace(",", ".");
-
-  selectedDessert = document.querySelector(".desserts .selected");
-  if (selectedDessert !== null) {
-    selectedDessert.classList.remove("selected");
-    selectedDessert.querySelector("ion-icon").classList.add("hidden");
-  }
-  element.classList.add("selected");
-  element.querySelector("ion-icon").classList.remove("hidden");
+  element.classList.toggle("selected");
+  element.querySelector("ion-icon").classList.toggle("hidden");
   checkForSelectedOptions();
 }
 
 function checkForSelectedOptions() {
-  if (mainCourse !== null && drink !== null && dessert !== null) {
+  let selectedOptions = document.querySelectorAll(".selected");
+  if (selectedOptions.length === 3) {
     document.querySelector("footer button").classList.add("enabled");
     document.querySelector("footer button").disabled = false;
     document.querySelector("footer button p").innerText = "Fechar pedido";
+
+    mainCourseName = document.querySelector(
+      ".main-courses .selected h3"
+    ).innerText;
+    drinkName = document.querySelector(".drinks .selected h3").innerText;
+    dessertName = document.querySelector(".desserts .selected h3").innerText;
+    mainCoursePrice = document
+      .querySelector(".main-courses .selected span")
+      .innerText.replace("R$ ", "")
+      .replace(",", ".");
+    drinkPrice = document
+      .querySelector(".drinks .selected span")
+      .innerText.replace("R$ ", "")
+      .replace(",", ".");
+    dessertPrice = document
+      .querySelector(".desserts .selected span")
+      .innerText.replace("R$ ", "")
+      .replace(",", ".");
+  } else {
+    document.querySelector("footer button").classList.remove("enabled");
+    document.querySelector("footer button").disabled = true;
+    document.querySelector("footer button p").innerText =
+      "Selecione os 3 itens para fechar o pedido";
   }
 }
 
@@ -75,35 +61,39 @@ function saveOrder() {
 function updateInformations() {
   document.querySelector(
     ".confirm-order-content .main-course"
-  ).innerHTML = `<h3>${mainCourse}</h3> 
+  ).innerHTML = `<h3>${mainCourseName}</h3> 
   <span>${mainCoursePrice.replace(".", ",")}</span>`;
   document.querySelector(
     ".confirm-order-content .drink"
-  ).innerHTML = `<h3>${drink}</h3> 
+  ).innerHTML = `<h3>${drinkName}</h3> 
   <span>${drinkPrice.replace(".", ",")}</span>`;
   document.querySelector(
     ".confirm-order-content .dessert"
-  ).innerHTML = `<h3>${dessert}</h3> 
+  ).innerHTML = `<h3>${dessertName}</h3> 
   <span> ${dessertPrice.replace(".", ",")}</span>`;
   document.querySelector(".confirm-order-content .total-value span").innerText =
     formatPrice().format(totalPrice);
 }
 
 function confirmOrder() {
-  const message = `Olá, gostaria de fazer o pedido:
-- Prato: ${mainCourse}
-- Bebida: ${drink}
-- Sobremesa: ${dessert}
-Total: ${formatPrice().format(totalPrice)}
-  
-Nome: ${prompt(
+  const customerName = prompt(
     "Por gentileza, poderia me informar seu nome?",
     "Insira seu nome aqui"
-  )}
-Endereço: ${prompt(
+  );
+  if (isNullOrEmpty(customerName)) return;
+  const customerAddress = prompt(
     "Agora, seu endereço, por favor!",
     "Insira seu endereço aqui"
-  )}`;
+  );
+  if (isNullOrEmpty(customerAddress)) return;
+
+  let message = `Olá, gostaria de fazer o pedido:\n`;
+  message += `- Prato: ${mainCourseName}\n`;
+  message += `- Bebida: ${drinkName}\n`;
+  message += `- Sobremesa: ${dessertName}\n`;
+  message += `Total: ${formatPrice().format(totalPrice)}\n\n`;
+  message += `Nome: ${customerName}\n`;
+  message += `Endereço: ${customerAddress}`;
 
   window.open(
     `https://wa.me/5521999999999?text=${encodeURIComponent(message)}`
@@ -122,4 +112,8 @@ function formatPrice() {
     currency: "BRL",
     minimumFractionDigits: 2,
   });
+}
+
+function isNullOrEmpty(value) {
+  return value === null || value === "";
 }
