@@ -1,15 +1,10 @@
-// Global variables
 let mainCourse = null;
 let drink = null;
 let dessert = null;
-
 let mainCoursePrice = null;
 let drinkPrice = null;
 let dessertPrice = null;
 let totalPrice = null;
-
-let customerName;
-let customerAddress;
 
 function selectMainCourse(element) {
   mainCourse = element.querySelector("h3").innerText;
@@ -71,58 +66,60 @@ function checkForSelectedOptions() {
 }
 
 function saveOrder() {
-  customerName = prompt("Por gentileza, poderia me informar seu nome?");
-  customerAddress = prompt("Agora, seu endereço, por favor!");
-  if (!isNullOrEmpty(customerName) && !isNullOrEmpty(customerAddress)) {
-    totalPrice = calculateTotalPrice();
-    updateInformations();
-  } else {
-    document.querySelector(
-      ".confirm-order-content .total-value span"
-    ).innerText = "R$ ";
-  }
+  totalPrice =
+    Number(mainCoursePrice) + Number(drinkPrice) + Number(dessertPrice);
+  updateInformations();
+  document.querySelector(".confirm-order-container").classList.remove("hidden");
+}
+
+function updateInformations() {
+  document.querySelector(
+    ".confirm-order-content .main-course"
+  ).innerHTML = `<h3>${mainCourse}</h3> 
+  <span>${mainCoursePrice.replace(".", ",")}</span>`;
+  document.querySelector(
+    ".confirm-order-content .drink"
+  ).innerHTML = `<h3>${drink}</h3> 
+  <span>${drinkPrice.replace(".", ",")}</span>`;
+  document.querySelector(
+    ".confirm-order-content .dessert"
+  ).innerHTML = `<h3>${dessert}</h3> 
+  <span> ${dessertPrice.replace(".", ",")}</span>`;
+  document.querySelector(".confirm-order-content .total-value span").innerText =
+    formatPrice().format(totalPrice);
 }
 
 function confirmOrder() {
-  const message = `Olá, gostaria de fazer o pedido:\n- Prato: ${mainCourse}\n- Bebida: ${drink}\n- Sobremesa: ${dessert}\nTotal: R$ ${totalPrice}\n\nNome: ${customerName}\nEndereço: ${customerAddress}`;
+  const message = `Olá, gostaria de fazer o pedido:
+- Prato: ${mainCourse}
+- Bebida: ${drink}
+- Sobremesa: ${dessert}
+Total: ${formatPrice().format(totalPrice)}
+  
+Nome: ${prompt(
+    "Por gentileza, poderia me informar seu nome?",
+    "Insira seu nome aqui"
+  )}
+Endereço: ${prompt(
+    "Agora, seu endereço, por favor!",
+    "Insira seu endereço aqui"
+  )}`;
+
   window.open(
     `https://wa.me/5521999999999?text=${encodeURIComponent(message)}`
   );
+
   document.querySelector(".confirm-order-container").classList.add("hidden");
 }
 
 function cancelOrder() {
   document.querySelector(".confirm-order-container").classList.add("hidden");
-  document.querySelector(".confirm-order-content .total-value span").innerText =
-    "R$ ";
 }
 
-function calculateTotalPrice() {
-  return (
-    Number(mainCoursePrice) +
-    Number(drinkPrice) +
-    Number(dessertPrice)
-  ).toFixed(2);
-}
-
-function updateInformations() {
-  document.querySelector(".confirm-order-content .main-course h3").innerText =
-    mainCourse;
-  document.querySelector(".confirm-order-content .main-course span").innerText =
-    mainCoursePrice.replace(".", ",");
-  document.querySelector(".confirm-order-content .drink h3").innerText = drink;
-  document.querySelector(".confirm-order-content .drink span").innerText =
-    drinkPrice.replace(".", ",");
-  document.querySelector(".confirm-order-content .dessert h3").innerText =
-    dessert;
-  document.querySelector(".confirm-order-content .dessert span").innerText =
-    dessertPrice.replace(".", ",");
-  document.querySelector(
-    ".confirm-order-content .total-value span"
-  ).innerText += totalPrice.replace(".", ",");
-  document.querySelector(".confirm-order-container").classList.remove("hidden");
-}
-
-function isNullOrEmpty(value) {
-  return value === null || value === "";
+function formatPrice() {
+  return new Intl.NumberFormat("pt-BR", {
+    style: "currency",
+    currency: "BRL",
+    minimumFractionDigits: 2,
+  });
 }
